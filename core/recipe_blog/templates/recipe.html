@@ -1,0 +1,77 @@
+{% load static %} 
+{% block start %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>recipe_website</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <form
+        class="col-6 p-3 shadow-lg"
+        method = "post"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <h2>Add recipe</h2>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Recipe name</label>
+          <input name="recipe_name" required type="text" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Recipe description</label
+          >
+          <textarea
+            name="recipe_description"
+            required
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Recipe image</label
+          >
+          <input name="recipe_image" type="file" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Add recipe</button>
+      </form>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Recipe name</th>
+            <th scope="col">Recipe description</th>
+            <th scope="col">Recipe image</th>
+          </tr>
+        </thead>
+        {%for x in queryset %}
+        <tbody>
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{x.recipe_name}}</td>
+            <td>{{x.recipe_description}}</td>
+            <td>{{x.recipe_image}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+      {% comment %} {{recipes}} {% endcomment %}
+    </div>
+
+    <script src="" async defer></script>
+  </body>
+</html>
+{% endblock %}
